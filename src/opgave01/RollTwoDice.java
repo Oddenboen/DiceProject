@@ -52,8 +52,9 @@ public class RollTwoDice {
     private static int[] rollDice(int[] face) {
         for (int i = 0; i < face.length; i++) {
             face[i] = (int) (Math.random() * 6 + 1);
-            sum += face[i];
+            sum += face[i]; //statistik, flyt til updateStatistics metoden
         }
+        // Feedback: Disse to if-sætninger hører mere hjemme i updateStatistics metoden
         if (face[0] == face[1]) {
             sammeØjne(face);
         }
@@ -64,6 +65,7 @@ public class RollTwoDice {
         return face;
     }
 
+    // Feedback: Denne metoden er lige simpel nok, og navnet giver ikke ekstra forståelse i forhold til variable navnet.
     private static void sammeØjne(int[] face) {
         doubleCount++;
     }

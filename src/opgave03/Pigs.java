@@ -2,6 +2,8 @@ package opgave03;
 
 import java.util.Scanner;
 
+
+// Feedback: Se kommentarer i Jeeeppeee github.
 public class Pigs {
     private static int player1Sum = 0;
     private static int player2Sum = 0;

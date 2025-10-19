@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Craps {
     private static int rollCount = 0;
     private static int point = 0;
+    // Feedback: Forvirrende tilstandsstyring. En heltalsvariabel 'test' bruges til at styre spillets faser.
+    // Dette er meget uklart. Beskrivende booleans (fx isComeOutRoll) ville være bedre.
     private static int test = 0;
     private static boolean vundet = false;
     private static boolean tabt = false;
@@ -41,6 +43,9 @@ public class Craps {
     //Lose = 2, 3 eller 12
     //Rest = point
     //Lose ved 7 hvis point er etableret
+
+
+    // Feedback: Spil-logikken er spredt ud i hjælpe-metoderne `rollDice` og `updateStatistics`.
     private static void playCraps(Scanner scanner) {
         restart();
         System.out.print("Rul en terning? ('ja/nej') ");
@@ -64,6 +69,9 @@ public class Craps {
 
     }
 
+    // Feedback: Denne metode bør kun rulle terningerne.
+    // I stedet indeholder den logikken for hele "come-out roll"-fasen.
+    // Denne logik bør flyttes til `playCraps`-metoden for at forbedre strukturen.
     private static int[] rollDice(int[] face) {
         for (int i = 0; i < face.length; i++) {
             face[i] = (int) (Math.random() * 6 + 1);
@@ -84,6 +92,9 @@ public class Craps {
     }
 
 
+    // Feedback: Opdaterer ikke kun statistik,
+    // den indeholder logikken for at vinde eller tabe i "point-fasen".
+    // Denne logik bør også flyttes til `playCraps`-metoden.
     private static void updateStatistics(int[] face) {
         rollCount++;
         //Vi gør så test skal være 2, da dette søger for at man ikke vinder og taber samtidig ved at slå 7 i første kast
@@ -114,12 +125,16 @@ public class Craps {
             System.out.println("Du tabte");
             spilTabt++;
         }
+        // Feedback: Der oprettes en ny Scanner til System.in, hvilket er dårlig praksis.
+        // Den oprindelige 'scanner' bør genbruges.
         Scanner input = new Scanner(System.in);
         System.out.println("Vil du spille igen ('ja/nej')");
         String igen = input.nextLine();
         if (!igen.equalsIgnoreCase("nej")) {
             playCraps(scanner);
         }
+        // Feedback: Den samlede score vises kun efter det allerførste spil.
+        // `showResult` bliver sat til `true` og forhindrer, at scoren nogensinde vises igen.
         if (showResult == false) {
             System.out.println("Du har i alt vundet " + spilVundet + " spil.");
             System.out.println("Du har i alt tabt " + spilTabt + " spil.");
